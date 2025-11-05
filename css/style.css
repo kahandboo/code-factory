@@ -3,3 +3,37 @@ header {
     align-items: center;     
     justify-content: center;    
 }
+
+main {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+.game-factory-button {
+    display: flex;
+    align-items: center;     
+    justify-content: center;
+
+    height: 200px;
+    width: 300px;  
+    padding: 20px 30px;      
+    background-color: #f0f0f0; 
+    border: 1px solid #ccc;  
+    border-radius: 8px;      
+    
+    color: black;            
+    text-decoration: none;   
+    text-align: center;      
+    
+    cursor: pointer;         
+}
+
+.game-factory-button:hover {
+    background-color: #e0e0e0;
+}
+
+.game-factory-button h2 {
+    margin: 0;
+    font-size: 1.5rem; 
+}
