@@ -1,18 +1,18 @@
 const DEFAULT_ASCII_RAMP = "@#%*+=-:. ";
 
+const ASCII_WIDTH = 80;
+const ASCII_HEIGHT = 40;
+
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 
-function getResizedImageData(image, width) {
-  const aspectRatioCorrection = 0.5; 
-  const scale = width / image.width;
-  const height = image.height * scale * aspectRatioCorrection;
+function getResizedImageData(image) {
+  canvas.width = ASCII_WIDTH;
+  canvas.height = ASCII_HEIGHT;
   
-  canvas.width = width;
-  canvas.height = height;
-  ctx.drawImage(image, 0, 0, width, height);
+  ctx.drawImage(image, 0, 0, ASCII_WIDTH, ASCII_HEIGHT);
   
-  return ctx.getImageData(0, 0, width, height);
+  return ctx.getImageData(0, 0, ASCII_WIDTH, ASCII_HEIGHT);
 }
 
 function mapImageDataToAscii(imageData, ramp) {
@@ -37,10 +37,9 @@ function mapImageDataToAscii(imageData, ramp) {
 }
 
 export function convertImageToAscii(image, options = {}) {
-  const width = options.width;
   const ramp = options.ramp || DEFAULT_ASCII_RAMP;
   
-  const imageData = getResizedImageData(image, width);
+  const imageData = getResizedImageData(image);
   const asciiArt = mapImageDataToAscii(imageData, ramp);
   
   return asciiArt;
