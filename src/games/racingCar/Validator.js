@@ -1,42 +1,27 @@
 import { CONSTANTS, ERROR_MESSAGES } from "./Constants.js";
 
-class Validator {
-  static parseCarNames(carNamesInput) {
-    if (!carNamesInput.includes(",")) throw new Error(ERROR_MESSAGES.MIN_CAR_COUNT);
-    const carNames = carNamesInput.split(",");
-        
-    return carNames.map(carName => carName.trim());
-  }
-    
-  static validateCarNames(carNames) {
-    carNames.forEach(carName => {
-      if (carName.length > CONSTANTS.MAX_NAME_LENGTH) {
-        throw new Error(ERROR_MESSAGES.NAME_LENGTH);
-      }
-    
-      if (carName === "") {
-        throw new Error(ERROR_MESSAGES.EMPTY_NAME);
-      }
-    });
-    
-    const uniqueCarNames = new Set(carNames);
-        
-    if (uniqueCarNames.size != carNames.length) {
-      throw new Error(ERROR_MESSAGES.DUPLICATE_NAME);
+class Validator {    
+  static validateCarName(carName) {
+    if (carName.length > CONSTANTS.MAX_NAME_LENGTH) {
+      throw new Error(ERROR_MESSAGES.NAME_LENGTH);
+    }
+  
+    if (carName === "") {
+      throw new Error(ERROR_MESSAGES.EMPTY_NAME);
     }
   }
     
-  static validateRound(roundInput) {
-    if (!roundInput || roundInput.trim() === "") {
-      throw new Error(ERROR_MESSAGES.EMPTY_ROUND);
+  static validateBettingAmount(BettingAmount) {
+    if (!BettingAmount || BettingAmount.trim() === "") {
+      throw new Error(ERROR_MESSAGES.EMPTY_AMOUNT);
     }
     
-    if (isNaN(Number(roundInput))) {
-      throw new Error(ERROR_MESSAGES.ROUND_NOT_NUMBER);
+    if (isNaN(Number(BettingAmount)) || Number(BettingAmount) < 1000) {
+      throw new Error(ERROR_MESSAGES.AMOUNT_OUT_OF_RANGE);
     }
     
-    if (Number(roundInput) <= 0) {
-      throw new Error(ERROR_MESSAGES.ROUND_POSITIVE);
+    if (Number(BettingAmount) % 1000 != 0) {
+      throw new Error(ERROR_MESSAGES.AMOUNT_INVALID_UNIT);
     }
   }    
 }
