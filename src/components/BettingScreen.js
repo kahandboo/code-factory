@@ -87,15 +87,15 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
             <p id="error-message" class="error-message"></p>
             <ul class="game-info">
                 <li>
-                    <span class="info-label">참가 자동차</span>
+                    <span class="info-label">carCount</span>
                     <span class="info-value" id="info-car-count"></span>
                 </li>
                 <li>
-                    <span class="info-label">총 라운드</span>
+                    <span class="info-label">totalRounds</span>
                     <span class="info-value" id="info-round-count"></span>
                 </li>
                 <li>
-                    <span class="info-label">예상 당첨금</span>
+                    <span class="info-label">Winnings</span>
                     <span class="info-value" id="info-winnings"></span>
                 </li>
             </ul>
@@ -132,15 +132,15 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
       error.textContent = "";
       const count = bettingAmount/1000;
 
-      carCount.textContent = `${count} 대`;
-      roundCount.textContent = `${count} 회`;
-      winnings.textContent = `${(bettingAmount * count).toLocaleString()} 원`;
+      carCount.textContent = `${count} Cars`;
+      roundCount.textContent = `${count} Rounds`;
+      winnings.textContent = `${(bettingAmount * count).toLocaleString()} C`;
     } catch (e) {
       error.textContent = e.message;
 
-      carCount.textContent = "대";
-      roundCount.textContent = "회";
-      winnings.textContent = "원";
+      carCount.textContent = "Cars";
+      roundCount.textContent = "Rounds";
+      winnings.textContent = "Credits";
     }
   });
 

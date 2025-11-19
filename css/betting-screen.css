@@ -4,7 +4,7 @@ body {
   padding: 0;
   height: 100%;
   overflow: hidden;
-  background-color: #1a1a1a;
+  background: linear-gradient(180deg, #000033 0%, #003366 100%);
   font-family: "VT323", monospace;
 }
 
@@ -15,14 +15,11 @@ body {
   padding: 1rem;
   box-sizing: border-box;
   position: relative;
+  border: 10px solid #333;
 }
 
 .title-container {
   flex: 0.4;
-  /* display: flex;
-  align-items: flex-end;
-  justify-content: center; */
-
   position: relative;
   text-align: center;
   z-index: 2;
@@ -35,10 +32,11 @@ body {
   transform: translateX(-50%);
   font-family: monospace;
   font-size: clamp(0.2rem, 1.1vw, 0.8rem);
-  color: #ff00ff;
+  color: #0000AA;
   z-index: 1;
   white-space: pre;
   line-height: 1.1;
+  opacity: 0.6;
 }
 
 #main-title {
@@ -52,12 +50,8 @@ body {
   width: 100%;
   margin: 0;
   font-family: "Press Start 2P", cursive;
-  color: #f0ff00;
-  text-shadow:
-    0 0 5px #fff,
-    0 0 10px #f0ff00,
-    0 0 20px #f0ff00,
-    0 0 30px #f0ff00;
+  color: #FFFF00;
+  text-shadow: 4px 4px #FF0000;
 }
 
 .betting-ui {
@@ -76,50 +70,55 @@ body {
 
 .betting-ui p {
   margin: 0.5rem 0 0.5rem 0;
-  font-size: 1.1rem;
-  color: #eee;
+  font-size: 1.3rem;
+  color: #FFFF00;
+  text-shadow: 2px 2px #000;
 }
 
 .betting-ui input[type="text"],
 .betting-ui input[type="number"] {
-  border: 2px solid #ff00ff;
-  border-radius: 4px;
+  border: 4px inset #999;
+  border-radius: 0;
   padding: 6px;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-family: "VT323", monospace;
   width: 100%;
   box-sizing: border-box;
-  background: #111;
-  color: #eee;
+  background: #000;
+  color: #00FF00;
 }
 
 .betting-ui input[type="text"]:focus,
 .betting-ui input[type="number"]:focus {
   outline: none;
-  box-shadow: 0 0 15px #ff00ff;
+  background: #222;
+  box-shadow: none;
 }
 
 .error-message {
-  color: #ff4136;
-  font-size: 0.5em;
+  color: #FF0000;
+  font-size: 0.8em;
   min-height: 1em;
   width: 100%;
+  background-color: #000;
+  text-align: center;
 }
 
 .game-info {
-  font-family: "VT323";
+  font-family: "Press Start 2P", cursive;
   width: 100%;
   list-style-type: none;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   box-sizing: border-box;
-  border: 2px dashed #00f0ff;
-  background-color: rgba(0, 30, 60, 0.3);
+  border: 4px outset #666;
+  background-color: #000;
 }
 
 .game-info li {
   display: flex;
   justify-content: space-between;
-  padding: 0.25rem 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #333;
 }
 
 .game-info li:last-child {
@@ -127,16 +126,13 @@ body {
 }
 
 .info-label {
-  font-weight: 500;
-  font-family: monospace;
-  color: #ffffff;
+  color: #ccc;
+  font-size: 0.6rem;
 }
 
 .info-value {
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 1.1em;
-  color: #ffffff;
+  font-size: 0.8em;
+  color: #FFFF00;
 }
 
 #start-race-btn {
@@ -145,31 +141,26 @@ body {
   font-family: "Press Start 2P", cursive;
   font-size: 1rem;
   font-weight: bold;
-  color: #111;
-  background: #00ff00;
-  border: none;
-  border-radius: 5px;
+  color: #fff;
+  background: #FF0000;
+  border: 4px outset #fff;
+  border-radius: 0;
   cursor: pointer;
   margin-top: 1rem;
-  transition:
-    background-color 0.2s,
-    transform 0.1s;
-  box-shadow:
-    0 0 15px #00ff00,
-    0 0 25px #00ff00;
+  transition: none;
+  box-shadow: 2px 2px 0 #000;
 }
 
 #start-race-btn:hover {
-  background: #fff;
-  color: #111;
-  box-shadow:
-    0 0 20px #fff,
-    0 0 30px #fff;
+  background: #AA0000;
+  color: #fff;
+  box-shadow: none;
 }
 
 #start-race-btn:active {
-  transform: translateY(2px);
-  box-shadow: 0 0 10px #fff;
+  transform: translate(2px, 2px);
+  border: 4px inset #fff;
+  box-shadow: none;
 }
 
 .ascii-art-border {
@@ -179,8 +170,8 @@ body {
   font-family: monospace;
   white-space: pre;
   font-size: 1em;
-  color: #f0ff00;
-  text-shadow: 0 0 5px #f0ff00;
+  color: #00FF00;
+  text-shadow: none;
   overflow: hidden;
 }
 
