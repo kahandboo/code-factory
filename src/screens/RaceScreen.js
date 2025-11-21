@@ -12,8 +12,8 @@ function createRankingHTML(game) {
     .slice(0, 10)
     .map((car, index) => `
             <li>
-                <span class="info-label">#${index + 1} ${car.getName()}</span>
-                <span class="info-value" id="info-car-score">${car.getScore()}</span>
+              <span class="info-label">#${index + 1} ${car.getName()}</span>
+              <span class="info-value" id="info-car-score">${car.getScore()}</span>
             </li>
         `)
     .join("");
@@ -26,7 +26,7 @@ function createTrackHTML(game, userCarName, carAscii) {
     const isPlayer = carName === userCarName;
     
     return `
-      <div id="${carId}" class="track-lane ${isPlayer ? 'player-lane' : ''}">
+      <div id="${carId}" class="track-lane ${isPlayer ? "player-lane" : ""}">
         <div class="rank-badge">-</div>
         <div class="lane-name">${carName}</div>
         <div class="lane-road">
@@ -45,15 +45,15 @@ function updateTrackState(game, totalRounds, isTurboMode, userCarName) {
 
   game.getCars().forEach((car, index) => {
     const laneElement = document.getElementById(`car-lane-${index}`);
-    const carIcon = laneElement.querySelector('.car-icon');
-    const rankBadge = laneElement.querySelector('.rank-badge');
+    const carIcon = laneElement.querySelector(".car-icon");
+    const rankBadge = laneElement.querySelector(".rank-badge");
 
     if (laneElement && carIcon) {
       const progress = Math.min((car.getScore() / totalRounds) * 100, 95);
       carIcon.style.left = `${progress}%`;
       carIcon.style.transition = isTurboMode ? "left 0.1s linear" : "left 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
       
-      if (car.getScore() > 0) carIcon.classList.add('moving');
+      if (car.getScore() > 0) carIcon.classList.add("moving");
 
       const currentRank = sortedCars.findIndex(c => c.getName() === car.getName()) + 1;
       
@@ -80,9 +80,9 @@ function updateTrackState(game, totalRounds, isTurboMode, userCarName) {
 
 function updateTickerBoard(tickerElement, message) {
   tickerElement.textContent = message;
-  tickerElement.classList.remove('ticker-anim');
+  tickerElement.classList.remove("ticker-anim");
   void tickerElement.offsetWidth; 
-  tickerElement.classList.add('ticker-anim');
+  tickerElement.classList.add("ticker-anim");
 }
 
 export async function renderRaceScreen(mainContainer, gameData, onRaceComplete) {
@@ -99,7 +99,7 @@ export async function renderRaceScreen(mainContainer, gameData, onRaceComplete) 
             <div class="race-main">
                 <h3>
                   RACE TRACK
-                  ${isTurboMode ? '<span class="turbo-badge">TURBO</span>' : ''}
+                  ${isTurboMode ? "<span class=\"turbo-badge\">TURBO</span>" : ""}
                 </h3>
                 <div id="race-track-display"></div>
             </div>
@@ -158,15 +158,15 @@ export async function renderRaceScreen(mainContainer, gameData, onRaceComplete) 
     let tickerMessage = "";
 
     if (rankPercent <= 10) {
-        tickerMessage = `${userCarName} ON FIRE! GO GO GO!`;
+      tickerMessage = `${userCarName} ON FIRE! GO GO GO!`;
     } else if (rankPercent <= 30) {
-        tickerMessage = `${userCarName} ALMOST THERE! CATCH THE LEADER!`;
+      tickerMessage = `${userCarName} ALMOST THERE! CATCH THE LEADER!`;
     } else if (rankPercent <= 50) {
-        tickerMessage = `${userCarName} GAINING TRACTION! KEEP PUSHING!`;
+      tickerMessage = `${userCarName} GAINING TRACTION! KEEP PUSHING!`;
     } else if (rankPercent <= 80) {
-        tickerMessage = `${userCarName} PUSH IT! YOU NEED MORE POWER!`;
+      tickerMessage = `${userCarName} PUSH IT! YOU NEED MORE POWER!`;
     } else {
-        tickerMessage = `${userCarName}? ENGINE TROUBLE? WAKE UP!!`;
+      tickerMessage = `${userCarName}? ENGINE TROUBLE? WAKE UP!!`;
     }
 
     updateTrackState(game, roundCount, isTurboMode, userCarName);

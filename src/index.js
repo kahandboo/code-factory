@@ -1,6 +1,6 @@
-import { renderBettingScreen } from "../components/BettingScreen.js";
-import { renderRaceScreen } from "../components/RaceScreen.js";
-import { renderResultScreen } from "../components/ResultScreen.js";
+import { renderBettingScreen } from "./screens/BettingScreen.js";
+import { renderRaceScreen } from "./screens/RaceScreen.js";
+import { renderResultScreen } from "./screens/ResultScreen.js";
 
 const screen = document.getElementById("game-screen-container");
 
@@ -21,11 +21,7 @@ function onNewBetting() {
 }
 
 function onCashOut() {
-  screen.innerHTML = `
-      <div class="screen" id="cash-out-screen">
-          <h2>이용해주셔서 감사합니다.</h2>
-      </div>
-  `;
+  window.location.href = "./map.html"; 
 }
 
 renderBettingScreen(screen, showRaceScreen);

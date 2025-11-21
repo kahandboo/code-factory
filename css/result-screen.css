@@ -9,8 +9,6 @@
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  background: linear-gradient(180deg, #000033 0%, #003366 100%);
-  border: 10px solid #333;
   font-family: "VT323", monospace;
 }
 
@@ -24,8 +22,6 @@
   text-align: center;
   z-index: 2;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 4px inset #666;
 }
 
 .result-main {
@@ -83,11 +79,11 @@
   opacity: 1;
   padding-right: 0;
 
-  animation: coin-flow 40s linear infinite;
+  animation: coin-flow-top 40s linear infinite;
 }
 
 .coin-flow.bottom .content {
-  animation: coin-flow 40s linear infinite;
+  animation: coin-flow-bottom 40s linear infinite;
 }
 
 /* =========================================
@@ -167,8 +163,6 @@
   width: 100%;
   padding-bottom: 2rem;
   
-  background-color: #333;
-  border: 4px outset #999;
   margin-top: 1rem;
   padding: 1rem;
   box-sizing: border-box;
@@ -211,13 +205,14 @@
 
 #new-betting-btn {
   color: #fff;
-  background-color: #0000AA;
+  background-color: #cfc208;
   text-shadow: 2px 2px #000;
 }
 
 #new-betting-btn:hover {
-  color: #fff;
-  background-color: #0000FF;
+  color: #000;
+  background-color: #ffee00;
+  text-shadow: none;
 }
 
 #new-betting-btn:active {
@@ -302,12 +297,12 @@
 }
 
 /* 띠 흐르는 효과 */
-@keyframes coin-flow {
+@keyframes coin-flow-top {
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 
-@keyframes coin-flow {
+@keyframes coin-flow-bottom {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(0); }
 }

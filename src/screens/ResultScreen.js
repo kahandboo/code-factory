@@ -1,3 +1,5 @@
+import { player } from "../models/Player.js";
+
 export function renderResultScreen(mainContainer, resultData, onPlayAgain, onNewBetting, onCashOut) {
   let mainResultHTML;
   const coinPattern = "( $ )   ( $ )   ( $ )   ( $ )   ( $ )   ( $ )   ( $ )   ( $ )   ";
@@ -65,6 +67,8 @@ export function renderResultScreen(mainContainer, resultData, onPlayAgain, onNew
 
     const numberElement = mainContainer.querySelector("#rolling-number");
     animateValue(numberElement, 0, resultData.winnings, 1000);
+
+    player.addCoins(resultData.winnings);
   }
   
   document.getElementById("play-again-btn").addEventListener("click", () => {

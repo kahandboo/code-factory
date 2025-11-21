@@ -1,5 +1,6 @@
 import Validator from "../games/racingCar/Validator.js";
 import { convertImageFileToAscii } from "../utils/converter.js";
+import { player } from "../models/Player.js";
 
 const CAR_FRAMES_PATH = "../title_car.jpg";
 
@@ -29,10 +30,10 @@ function startBettingAnimations() {
     clearInterval(window.bettingAnimationInterval);
   }
   
-  const borderTop = document.getElementById('border-top');
-  const borderLeft = document.getElementById('border-left');
-  const borderRight = document.getElementById('border-right');
-  const borderBottom = document.getElementById('border-bottom');
+  const borderTop = document.getElementById("border-top");
+  const borderLeft = document.getElementById("border-left");
+  const borderRight = document.getElementById("border-right");
+  const borderBottom = document.getElementById("border-bottom");
   let frameIndex = 0;
 
   window.bettingAnimationInterval = setInterval(() => {
@@ -49,7 +50,7 @@ function startBettingAnimations() {
 }
 
 async function loadStaticAsciiTitle() {
-  const titleEl = document.getElementById('title-animation');
+  const titleEl = document.getElementById("title-animation");
 
   try {
     const asciiArt = await convertImageFileToAscii(CAR_FRAMES_PATH);
@@ -100,18 +101,33 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
                 </li>
             </ul>
             <button id="start-race-btn">! RACE START !</button>
-          </div>
+          </div>            
+          <button id="exit-btn">EXIT</button>
         </div>
     `;
 
   const bettingInput = document.getElementById("betting-amount");
   const carNameInput = document.getElementById("player-car-name");
   const startButton = document.getElementById("start-race-btn");
+  const exitButton = document.getElementById("exit-btn");
 
   const error = document.getElementById("error-message");
   const carCount = document.getElementById("info-car-count");
   const roundCount = document.getElementById("info-round-count");
   const winnings = document.getElementById("info-winnings");
+
+  startButton.disabled = true;
+
+  const checkFormValidity = () => {
+    try {
+      Validator.validateCarName(carNameInput.value);
+      Validator.validateBettingAmount(bettingInput.value);
+      
+      startButton.disabled = false;
+    } catch (e) {
+      startButton.disabled = true;
+    }
+  };
 
   carNameInput.addEventListener("input", () => {
     const carName = carNameInput.value;
@@ -122,6 +138,7 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
     } catch (e) {
       error.textContent = e.message;
     }
+    checkFormValidity();
   });
 
   bettingInput.addEventListener("input", () => {
@@ -142,6 +159,7 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
       roundCount.textContent = "Rounds";
       winnings.textContent = "Credits";
     }
+    checkFormValidity();
   });
 
   startButton.addEventListener("click", () => {
@@ -150,7 +168,15 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
       carName: carNameInput.value
     };
 
-    onStartCallback(gameData);
+    if (player.deductCoins(gameData.bettingAmount)) {
+      onStartCallback(gameData);
+    } else {
+      error.textContent = "잔액 부족";
+    }
+  });
+
+  exitButton.addEventListener("click", () => {
+    window.location.href = "./map.html"; 
   });
 
   loadStaticAsciiTitle();

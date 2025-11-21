@@ -166,19 +166,19 @@
 }
 
 .car-ascii-art {
-    font-family: 'Courier New', monospace;
-    font-size: 2px;
-    line-height: 2px;
-    white-space: pre;
-    color: #fff; 
-    transform: scale(0.5);
-    transform-origin: left center;
-    text-shadow: none;
+  font-family: 'Courier New', monospace;
+  font-size: 2px;
+  line-height: 2px;
+  white-space: pre;
+  color: #fff; 
+  transform: scale(0.5);
+  transform-origin: left center;
+  text-shadow: none;
 }
 
 .player-lane .car-ascii-art {
-    color: #FFFF00;
-    text-shadow: 1px 1px #FF0000;
+  color: #FFFF00;
+  text-shadow: 1px 1px #FF0000;
 }
 
 .car-icon.moving .car-body { 
@@ -186,7 +186,7 @@
 }
 
 .car-icon.moving .car-ascii-art { 
-    animation: ascii-vroom 0.1s infinite alternate;
+  animation: ascii-vroom 0.1s infinite alternate;
 }
 
 /* =========================================
@@ -236,14 +236,24 @@
   justify-content: space-between;
   padding: 0.5rem 1rem; 
   border-bottom: 1px solid #333;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 #ranking-list li:first-child {
-  color: #000;
   font-weight: bold;
-  animation: turbo-blink 0.5s infinite; 
-  background-color: #FFFF00;
+  background-color: #fffb16;
+}
+
+#ranking-list li:first-child .info-label {
+  color: #000;
+}
+
+#ranking-list li:first-child .info-value {
+  color: #000;
+}
+
+.info-label {
+  font-size: 1.5rem;
 }
 
 .info-value {
@@ -316,7 +326,7 @@
   font-family: 'Press Start 2P', cursive;
 }
 
-#footer-betting-amount { color: #fff; }
+#footer-betting-amount { color: #fff; text-shadow: 2px 2px #000; }
 #footer-winnings { color: #FFFF00; text-shadow: 2px 2px #000; }
 #footer-player-car { color: #00FF00; text-shadow: 2px 2px #000; }
 
