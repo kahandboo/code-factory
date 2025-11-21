@@ -1,0 +1,70 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'NeoDunggeunmo', "VT323", monospace;
+}
+
+.map-ui {
+  font-family: 'NeoDunggeunmo';
+}
+
+.screen#map-screen {
+  background-color: #000;
+  color: #33ff33;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'VT323', monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+#ascii-map {
+  font-size: 1.5rem;
+  line-height: 1.8rem; 
+  white-space: pre;
+  background: #111;
+  padding: 2rem;
+  border: 4px double #33ff33;
+  box-shadow: 0 0 20px rgba(51, 255, 51, 0.2);
+}
+
+.player {
+  color: #fff;
+  text-shadow: 0 0 5px #fff;
+  font-weight: bold;
+  animation: blink 0.5s infinite;
+}
+
+.player { color: #fff; text-shadow: 0 0 5px #fff; animation: blink 0.5s infinite; }
+.wall { color: #333; }
+.machine-racing { color: #FF003C; font-weight: bold; text-shadow: 0 0 5px #FF003C; }
+.machine-lotto { color: #FFFF00; font-weight: bold; text-shadow: 0 0 5px #FFFF00; }
+.npc { color: #00FFFF; font-weight: bold; animation: bounce 1s infinite; }
+.machine-broken { color: #550000; animation: spark 0.1s infinite; }
+.machine-shop { color: #00AAFF; }
+.trash { color: #444; }
+.deco { color: #666; }
+
+#dialogue-box {
+  position: absolute;
+  bottom: 2rem;
+  width: 80%;
+  background: #000;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 1rem;
+  font-family: 'NeoDunggeunmo';
+  font-size: 1.3rem;
+  line-height: 1.5;
+  z-index: 10;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
