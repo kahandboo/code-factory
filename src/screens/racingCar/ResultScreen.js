@@ -1,4 +1,4 @@
-import { player } from "../models/Player.js";
+import { player } from "../../models/Player.js";
 
 export function renderResultScreen(mainContainer, resultData, onPlayAgain, onNewBetting, onCashOut) {
   let mainResultHTML;

@@ -1,5 +1,5 @@
-import Car from "../games/racingCar/Car.js";
-import { CarGame, generateCarNames } from "../games/racingCar/CarGame.js";
+import Car from "../../games/racingCar/Car.js";
+import { CarGame, generateCarNames } from "../../games/racingCar/CarGame.js";
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

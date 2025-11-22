@@ -1,4 +1,4 @@
-const DEFAULT_ASCII_RAMP = "@#%*+=-:. ";
+const DEFAULT_ASCII_RAMP = "@#*=-. ";
 
 const ASCII_WIDTH = 80;
 const ASCII_HEIGHT = 40;
@@ -44,3 +44,27 @@ export function convertImageToAscii(image, options = {}) {
   
   return asciiArt;
 }
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.onload = () => resolve(img);
+    img.onerror = (err) => reject(new Error(`Failed to load image at ${src}`));
+    
+    img.src = src;
+  });
+}
+
+export async function convertImageFileToAscii(imagePath, options = {}) {
+  try {
+    const imageObject = await loadImage(imagePath);  
+    const asciiArt = convertImageToAscii(imageObject, options);
+    
+    return asciiArt;
+  } catch (error) {
+    console.error(error);
+    return null; 
+  }
+}
+

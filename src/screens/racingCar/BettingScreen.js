@@ -1,6 +1,6 @@
-import Validator from "../games/racingCar/Validator.js";
-import { convertImageFileToAscii } from "../utils/converter.js";
-import { player } from "../models/Player.js";
+import Validator from "../../games/racingCar/Validator.js";
+import { convertImageFileToAscii } from "../../utils/converter.js";
+import { player } from "../../models/Player.js";
 
 const CAR_FRAMES_PATH = "../title_car.jpg";
 
@@ -88,16 +88,16 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
             <p id="error-message" class="error-message"></p>
             <ul class="game-info">
                 <li>
-                    <span class="info-label">carCount</span>
-                    <span class="info-value" id="info-car-count"></span>
+                  <span class="info-label">carCount</span>
+                  <span class="info-value" id="info-car-count"></span>
                 </li>
                 <li>
-                    <span class="info-label">totalRounds</span>
-                    <span class="info-value" id="info-round-count"></span>
+                  <span class="info-label">totalRounds</span>
+                  <span class="info-value" id="info-round-count"></span>
                 </li>
                 <li>
-                    <span class="info-label">Winnings</span>
-                    <span class="info-value" id="info-winnings"></span>
+                  <span class="info-label">Winnings</span>
+                  <span class="info-value" id="info-winnings"></span>
                 </li>
             </ul>
             <button id="start-race-btn">! RACE START !</button>

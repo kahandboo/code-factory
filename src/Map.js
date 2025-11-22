@@ -13,10 +13,13 @@ function startMap() {
     if (gameType === "racing") {
       mapScreen.destroy(); 
       setTimeout(() => {
-        window.location.href = "./index.html"; 
+        window.location.href = "./racing-car.html"; 
       }, 1000);
     } else if (gameType === "lotto") {
-      alert("준비중");
+      mapScreen.destroy(); 
+      setTimeout(() => {
+        window.location.href = "./lotto.html"; 
+      }, 1000);
     }
   });
 

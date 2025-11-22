@@ -10,14 +10,8 @@ export const DIALOGUES = {
   lotto_machine: {
     text: "화려한 불빛이 깜빡이는 로또 기계다.\n인생 역전을 노려볼까?",
     options: [
-      { label: "한 판 땡긴다", next: "lotto_confirm" },
+      { label: "한 판 땡긴다", action: "START_LOTTO" },
       { label: "관심 없다", next: null }
-    ]
-  },
-  lotto_confirm: {
-    text: "시스템 준비 중입니다...",
-    options: [
-      { label: "뒤로 가기", next: null }
     ]
   },
 

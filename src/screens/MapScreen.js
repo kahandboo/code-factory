@@ -215,6 +215,12 @@ export class MapScreen {
       this.onEnterGame("racing");
       return;
     }
+
+    if (option.action === "START_LOTTO") {
+      this.closeDialogue();
+      this.onEnterGame("lotto");
+      return;
+    }
     
     if (option.next) {
       this.startDialogue(option.next);
