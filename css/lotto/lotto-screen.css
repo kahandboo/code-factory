@@ -1,0 +1,161 @@
+#lotto-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  font-family: 'VT323', monospace;
+  padding: 1rem;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+#lotto-screen .title-container h3 {
+  font-family: 'NeoDunggeunmo';
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #00ffea;
+  text-shadow: 
+    3px 3px 0px #c807da,
+    0 0 15px rgba(0, 255, 234, 0.7);  
+  margin: 0 0 2rem 0;
+  text-align: center;
+  text-transform: uppercase;
+  animation: neon-flicker 1s infinite alternate;
+}
+
+.machine-ui {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+
+  background-color: rgba(10, 10, 16, 0.85);
+  border: 1px solid rgba(0, 255, 234, 0.5);
+  box-shadow: 0 0 30px rgba(200, 7, 218, 0.15);
+  box-sizing: border-box;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#progress-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  color: #c807da;
+  text-shadow: 0 0 5px rgba(200, 7, 218, 0.8);
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 30px;
+  background-color: #000;
+  border: 1px solid #333;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px #000;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #c807da 0%, #00ffea 100%);
+  box-shadow: 0 0 15px rgba(0, 255, 234, 0.5);
+  transition: width 0.1s linear;
+}
+
+.ticket-output {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  background-color: rgba(0, 0, 0, 0.6); 
+  border: 1px solid #333;
+  border-bottom: 1px solid #00ffea;
+  padding: 1rem;
+  overflow-y: hidden;
+  gap: 10px;
+}
+
+.lotto-ticket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05); 
+  border: 1px solid rgba(0, 255, 234, 0.2);
+  box-shadow: none;
+}
+
+.lotto-ticket.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+.small-ball {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  
+  background-color: #000; 
+  color: #fff;
+  
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  margin: 0 6px;
+  
+  border: 2px solid #fff; 
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5); 
+  text-shadow: none;
+}
+
+.small-ball:nth-child(2n+1) {
+  border-color: #00ffea;
+  color: #00ffea;
+  box-shadow: 0 0 10px #00ffea, inset 0 0 5px rgba(0, 255, 234, 0.5);
+}
+
+.small-ball:nth-child(2n) {
+  border-color: #c807da;
+  color: #c807da;
+  box-shadow: 0 0 10px #c807da, inset 0 0 5px rgba(200, 7, 218, 0.5);
+}
+
+.small-ball:nth-child(3n) {
+  border-color: #FFFF00;
+  color: #FFFF00;
+  box-shadow: 0 0 10px #FFFF00, inset 0 0 5px rgba(255, 255, 0, 0.5);
+}
+
+.small-ball:nth-child(4n) {
+  border-color: #bd00ff;
+  color: #bd00ff;
+  box-shadow: 0 0 10px #bd00ff, inset 0 0 5px rgba(189, 0, 255, 0.5);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: 3px 3px 0px #c807da, 0 0 15px rgba(0, 255, 234, 0.7);
+  }
+  20%, 24%, 55% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+}

@@ -1,0 +1,251 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'NeoDunggeunmo',"VT323", monospace;
+}
+
+body::after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  z-index: 100; 
+  pointer-events: none; 
+  opacity: 0.3;
+}
+
+#betting-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+#betting-screen::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  
+  box-shadow: 
+    10vw 10vh #00ffea, 20vw 80vh #00ffea, 30vw 30vh #00ffea,
+    40vw 50vh #00ffea, 50vw 90vh #00ffea, 60vw 20vh #00ffea,
+    70vw 70vh #00ffea, 80vw 40vh #00ffea, 90vw 60vh #00ffea,
+    15vw 85vh #00ffea, 25vw 15vh #00ffea, 85vw 25vh #00ffea;
+    
+  opacity: 0.6;
+  animation: particle-rise 10s linear infinite;
+  z-index: 0; 
+}
+
+#betting-screen::after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px; 
+  height: 3px;
+  background: transparent;
+  
+  box-shadow: 
+    5vw 20vh #c807da, 15vw 90vh #c807da, 35vw 40vh #c807da,
+    55vw 60vh #c807da, 75vw 10vh #c807da, 95vw 80vh #c807da,
+    45vw 15vh #c807da, 65vw 85vh #c807da;
+    
+  opacity: 0.4;
+  animation: particle-rise 15s linear infinite reverse; 
+  z-index: 0;
+}
+
+#betting-screen .title-container {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+#betting-screen h2 {
+  font-family: "Press Start 2P", cursive;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #00ffea;
+  text-shadow: 3px 3px 0px #c807da;
+  margin: 0 0 1.5rem 0;
+}
+
+.purchase-ui {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+
+  background-color: rgba(10, 10, 16, 0.85);
+  border: 2px solid rgba(0, 255, 234, 0.3);
+  box-shadow: 0 0 20px rgba(200, 7, 218, 0.2);
+
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.purchase-ui label {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #c807da;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.purchase-ui input[type="text"] {
+  border: 2px solid #333;
+  background: #000;
+  border-bottom: 2px solid #00ffea;
+  color: #ffffff;
+
+  font-family: "VT323", monospace;
+  font-size: 1.5rem;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.purchase-ui input[type="text"]:focus {
+  outline: none;
+  background-color: rgba(0, 255, 234, 0.1); 
+  border-color: #00ffea;
+  box-shadow: 0 0 15px rgba(0, 255, 234, 0.4);
+  color: #00ffea;
+}
+
+.preview-text {
+  color: yellow;
+  align-self: flex-end;
+  font-family: "VT323", 'NeoDunggeunmo';
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
+
+.lotto-iuput-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.auto-btn {
+  background: transparent;
+  border: 1px solid #c807da;
+  color: #c807da;
+  font-family: 'NeoDunggeunmo';
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2px 8px;
+  text-shadow: 0 0 5px #c807da;
+}
+
+.auto-btn:hover {
+  background: #c807da;
+  color: #fff;
+  box-shadow: 0 0 15px #c807da;
+}
+
+.auto-btn:active {
+  transform: translateY(2px);
+}
+
+.lotto-inputs-container {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'NeoDunggeunmo';
+  gap: 8px;
+  width: 100%;
+}
+
+.winning-number-input {
+  width: 100%;
+  text-align: center;
+}
+
+.purchase-ui .error-message {
+  color: #FF0000;
+  font-family: "VT323", 'NeoDunggeunmo', monospace;
+  font-size: 1.2rem;
+  min-height: 1.5rem;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#start-btn {
+  width: 100%;
+  padding: 15px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, #c807da 0%, #00ffea 100%);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  box-shadow: 2px 2px 0 #000;
+}
+
+#start-btn:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 20px rgba(0, 255, 234, 0.6);
+}
+
+#start-btn:active {
+  transform: translate(2px, 2px);
+}
+
+#start-btn:disabled {
+  background: #333;
+  color: #777;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+#exit-btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 1.5rem;
+  padding: 8px 12px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+
+  color: #fff;
+  background: transparent;
+  border: none;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+#exit-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+@keyframes particle-rise {
+  0% { transform: translateY(0); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}

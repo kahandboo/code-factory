@@ -4,51 +4,6 @@ import { player } from "../../models/Player.js";
 
 const CAR_FRAMES_PATH = "../title_car.jpg";
 
-const BORDER_FRAMES = [
-  { 
-    top: "+ o * ".repeat(300),
-    left: "+\no\n*\n".repeat(300),
-    right: "*\no\n+\n".repeat(300),
-    bottom: "* o + ".repeat(300)
-  },
-  { 
-    top: "o * + ".repeat(300),
-    left: "o\n*\n+\n".repeat(300),
-    right: "o\n+\n*\n".repeat(300),
-    bottom: "+ * o ".repeat(300)
-  },
-  { 
-    top: "* + o ".repeat(300),
-    left: "*\n+\no\n".repeat(300),
-    right: "+\n*\no\n".repeat(300),
-    bottom: "o + * ".repeat(300)
-  }
-];
-
-function startBettingAnimations() {
-  if (window.bettingAnimationInterval) {
-    clearInterval(window.bettingAnimationInterval);
-  }
-  
-  const borderTop = document.getElementById("border-top");
-  const borderLeft = document.getElementById("border-left");
-  const borderRight = document.getElementById("border-right");
-  const borderBottom = document.getElementById("border-bottom");
-  let frameIndex = 0;
-
-  window.bettingAnimationInterval = setInterval(() => {
-    frameIndex = (frameIndex + 1) % BORDER_FRAMES.length;
-    const borderFrameIndex = frameIndex % BORDER_FRAMES.length;
-    const frame = BORDER_FRAMES[borderFrameIndex]; 
-
-    if (borderTop) borderTop.textContent = frame.top;
-    if (borderLeft) borderLeft.textContent = frame.left;
-    if (borderRight) borderRight.textContent = frame.right;
-    if (borderBottom) borderBottom.textContent = frame.bottom;
-    
-  }, 200); 
-}
-
 async function loadStaticAsciiTitle() {
   const titleEl = document.getElementById("title-animation");
 
@@ -69,12 +24,6 @@ async function loadStaticAsciiTitle() {
 export function renderBettingScreen(mainContainer, onStartCallback) {
   mainContainer.innerHTML = `
         <div class="screen" id="betting-screen">
-
-          <pre id="border-top" class="ascii-art-border"></pre>
-          <pre id="border-left" class="ascii-art-border"></pre>
-          <pre id="border-right" class="ascii-art-border"></pre>
-          <pre id="border-bottom" class="ascii-art-border"></pre>
-
           <div class="title-container">
             <pre id="title-animation" class="ascii-art-title"></pre>
             <h2 id="main-title">Racing Cars</h2>
@@ -180,5 +129,4 @@ export function renderBettingScreen(mainContainer, onStartCallback) {
   });
 
   loadStaticAsciiTitle();
-  startBettingAnimations();
 }

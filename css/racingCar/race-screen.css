@@ -1,0 +1,355 @@
+/* =========================================
+   0. 색상 테마 (변수로 관리)
+   ========================================= */
+:root {
+  --bg-gradient: linear-gradient(180deg, #000033 0%, #003366 100%);
+  --gold-primary: #FFFF00;       
+  --gold-glow: #FF0000;         
+  --purple-neon: #00FF00;        
+  --purple-dark: #0000AA;       
+  --text-white: #FFFFFF;        
+  --danger-red: #FF0000;        
+  --panel-bg: #000000; 
+}
+
+/* =========================================
+   1. 전체 구조
+   ========================================= */
+.screen#race-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-gradient); 
+  color: var(--text-white);
+  font-family: 'VT323', monospace; 
+  overflow: hidden;
+  
+  padding: 1rem; 
+  box-sizing: border-box;
+  border: 10px solid #333;
+}
+
+.race-container {
+  flex: 1; 
+  display: flex;
+  gap: 1rem; 
+  overflow: hidden; 
+  margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   2. 경주 트랙
+   ========================================= */
+.race-main {
+  flex: 1;
+  min-width: 0; 
+  
+  display: flex;
+  flex-direction: column;
+  border: 4px outset #666; 
+  background-color: var(--panel-bg);
+  
+  border-radius: 0; 
+  box-shadow: inset 0 0 20px #000; 
+}
+
+.race-main h3 {
+  background: #0000AA; 
+  color: #FFFF00;
+  margin: 0;
+  padding: 0.6rem 1rem; 
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  border-bottom: 4px solid #fff;
+  text-shadow: 2px 2px #000;
+}
+
+.turbo-badge {
+  display: inline-block;
+  background-color: var(--danger-red); 
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  border-radius: 0;
+  margin-left: 10px;
+  vertical-align: middle;
+  
+  animation: turbo-blink 0.1s infinite;
+}
+
+#race-track-display {
+  flex: 1;
+  margin: 0;
+  padding: 0.5rem;
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  display: flex;
+  flex-direction: column;
+  gap: 0; 
+}
+
+.track-lane {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 3.5rem;
+  border-bottom: 2px solid #333; 
+  transition: none;
+}
+
+.track-lane.player-lane {
+  background: #222; 
+  border: 2px solid #FFFF00; 
+  border-left: 2px solid #FFFF00; 
+  border-radius: 0;
+}
+
+.track-lane.player-lane .lane-name {
+  color: #FFFF00;
+  font-weight: bold;
+  text-shadow: 2px 2px #FF0000;
+}
+
+.rank-badge {
+  width: 40px;
+  height: 30px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff; 
+  font-weight: bold;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lane-name {
+  width: 70px; 
+  color: #ccc;
+  font-size: 1.2rem;
+  text-align: right;
+  padding-right: 1rem;
+  flex-shrink: 0;
+}
+
+.lane-road {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-right: 5px solid #FF0000; 
+  box-shadow: none;
+}
+
+.finish-line {
+    position: absolute;
+    right: -35px;
+    font-size: 0.8rem;
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.car-icon {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 60px; 
+  height: 40px; 
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  transition: left 0.8s linear;
+}
+
+.car-ascii-art {
+  font-family: 'Courier New', monospace;
+  font-size: 2px;
+  line-height: 2px;
+  white-space: pre;
+  color: #fff; 
+  transform: scale(0.5);
+  transform-origin: left center;
+  text-shadow: none;
+}
+
+.player-lane .car-ascii-art {
+  color: #FFFF00;
+  text-shadow: 1px 1px #FF0000;
+}
+
+.car-icon.moving .car-body { 
+  animation: vroom 0.1s infinite alternate;
+}
+
+.car-icon.moving .car-ascii-art { 
+  animation: ascii-vroom 0.1s infinite alternate;
+}
+
+/* =========================================
+   3. 순위 및 라운드
+   ========================================= */
+.race-sidebar {
+  min-width: 300px; 
+  width: 300px;
+  
+  display: flex;
+  flex-direction: column;
+  border: 4px outset #666; 
+  background-color: #000;
+  border-radius: 0;
+}
+
+.race-sidebar h3 {
+  background-color: #AA0000;
+  color: #fff;
+  margin: 0;
+  padding: 0.8rem;
+  text-align: center;
+  font-size: 1.2rem;
+  border-bottom: 4px solid #fff;
+}
+
+#round-info {
+  text-align: center;
+  font-size: 1.5rem; 
+  color: #00FF00;
+  margin: 1rem 0;
+  text-shadow: none;
+  font-family: 'Press Start 2P', cursive; 
+  line-height: 1.4;
+}
+
+#ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1; 
+}
+
+#ranking-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem; 
+  border-bottom: 1px solid #333;
+  font-size: 1.5rem;
+}
+
+#ranking-list li:first-child {
+  font-weight: bold;
+  background-color: #fffb16;
+}
+
+#ranking-list li:first-child .info-label {
+  color: #000;
+}
+
+#ranking-list li:first-child .info-value {
+  color: #000;
+}
+
+.info-label {
+  font-size: 1.5rem;
+}
+
+.info-value {
+  color: #00FF00;
+}
+
+/* =========================================
+   4. 중계 전광판
+   ========================================= */
+.ticker-board-wrapper {
+  background-color: #000;
+  border: 4px inset #333; 
+  border-radius: 0;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  overflow: hidden; 
+  box-shadow: none;
+  height: 2.5rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+#ticker-message {
+  color: #FF0000; 
+  font-size: 1.5rem;
+  font-weight: bold;
+  white-space: nowrap; 
+  text-shadow: none;
+  
+  animation: none;
+}
+
+/* =========================================
+   5. 하단 정보창
+   ========================================= */
+.race-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; 
+  
+  padding: 1rem; 
+  
+  border: 4px outset #999;
+  border-radius: 0;
+  list-style: none;
+  box-shadow: none;
+}
+
+.race-footer li {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 0.2rem;
+}
+
+.race-footer .info-label {
+  font-family: 'Press Start 2P', cursive;  
+  font-size: 0.6rem;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+.race-footer span:not(.info-label) {
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#footer-betting-amount { color: #fff; text-shadow: 2px 2px #000; }
+#footer-winnings { color: #FFFF00; text-shadow: 2px 2px #000; }
+#footer-player-car { color: #00FF00; text-shadow: 2px 2px #000; }
+
+/* =========================================
+   5. 키프레임 모음
+   ========================================= */
+@keyframes vroom {
+  0% { transform: translateY(0) skewX(0deg); }
+  100% { transform: translateY(-1px) skewX(-5deg); } 
+}
+
+@keyframes ascii-vroom {
+  0% { transform: scale(0.5) translateY(0); }
+  100% { transform: scale(0.5) translateY(-2px); } 
+}
+
+@keyframes ticker-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes turbo-blink {
+  0% { opacity: 1; background-color: #FF0000; color: #fff; }
+  50% { opacity: 1; background-color: #FFFF00; color: #000; }
+  100% { opacity: 1; background-color: #FF0000; color: #fff; }
+}

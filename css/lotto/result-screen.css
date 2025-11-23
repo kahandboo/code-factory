@@ -1,0 +1,184 @@
+.result-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'NeoDunggeunmo', 'VT323', monospace;
+  padding: 1rem;
+}
+
+#result-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #00ffea;
+  text-shadow: 
+    3px 3px 0px #c807da,
+    0 0 15px rgba(0, 255, 234, 0.7);
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  text-align: center;
+  animation: neon-flicker 1s infinite alternate;
+}
+
+.receipt {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  background-color: rgba(10, 10, 16, 0.85);
+  color: #fff;  
+  font-size: 1.3rem;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(0, 255, 234, 0.5);
+  box-shadow: 
+    0 0 30px rgba(200, 7, 218, 0.15), 
+    inset 0 0 20px rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(0, 255, 234, 0.5);
+  border-bottom: 1px solid rgba(0, 255, 234, 0.5);
+
+  transform: rotate(-1deg);
+}
+
+.receipt p {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #ccc;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.receipt p span, 
+.receipt p strong {
+  color: #00ffea; 
+  text-shadow: 0 0 5px rgba(0, 255, 234, 0.5);
+}
+
+.receipt hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c807da, transparent);
+  margin: 1rem 0;
+}
+
+.rank-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rank-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 1.1rem;
+}
+
+.rank-list li:last-child {
+  border-bottom: none;
+}
+
+.rank-list li strong {
+  font-family: 'NeoDunggeunmo';
+  font-size: 0.9rem;
+  color: #c807da;
+}
+
+.rank-list li.active strong {
+  color: #FFFF00; 
+  text-shadow: 0 0 10px #FFFF00;
+}
+
+.result-footer {
+  display: flex;
+  width: 100%;
+  max-width: 450px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.result-footer button {
+  width: 100%;
+  padding: 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.1s;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.result-footer button:active {
+  transform: scale(0.98);
+}
+
+.result-footer button:hover {
+  filter: brightness(1.2);
+  z-index: 10;
+}
+
+#play-again-btn {
+  background: linear-gradient(90deg, #00ffea 0%, #00aaaa 100%);
+  box-shadow: 0 0 15px rgba(0, 255, 234, 0.4);
+
+  animation: heartbeat 1s infinite ease-in-out;
+}
+
+#new-betting-btn {
+  background: linear-gradient(90deg, #c807da 0%, #880099 100%);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(200, 7, 218, 0.4);
+}
+
+#cash-out-btn {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+  padding: 5px;
+
+  width: auto;
+  max-width: none;
+  background: #ccc;
+  text-shadow: none;
+  box-shadow: 1px 1px 0 #000;
+
+  font-family: "VT323";
+  font-size: 1rem;
+  color: #000;
+  opacity: 1;
+}
+
+#cash-out-btn:hover {
+  opacity: 1;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 10px #fff;
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: 3px 3px 0px #c807da, 0 0 15px rgba(0, 255, 234, 0.7);
+  }
+  20%, 24%, 55% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); background-color: #FF4444; }
+  100% { transform: scale(1); }
+}
