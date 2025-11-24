@@ -8,8 +8,9 @@ body {
   font-family: 'NeoDunggeunmo', "VT323", monospace;
 }
 
-.map-ui {
+.game-hud {  
   font-family: 'NeoDunggeunmo';
+  font-size: 1.1rem;
 }
 
 .screen#map-screen {
@@ -35,6 +36,10 @@ body {
   box-shadow: 0 0 20px rgba(51, 255, 51, 0.2);
 }
 
+.controls-ui {
+  font-family: 'NeoDunggeunmo';
+}
+
 .player {
   color: #fff;
   text-shadow: 0 0 5px #fff;
@@ -46,11 +51,29 @@ body {
 .wall { color: #333; }
 .machine-racing { color: #FF003C; font-weight: bold; text-shadow: 0 0 5px #FF003C; }
 .machine-lotto { color: #FFFF00; font-weight: bold; text-shadow: 0 0 5px #FFFF00; }
-.npc { color: #00FFFF; font-weight: bold; animation: bounce 1s infinite; }
+.npc_manager { color: #00FFFF; font-weight: bold; animation: npc-glitch 1s infinite; }
 .machine-broken { color: #550000; animation: spark 0.1s infinite; }
 .machine-shop { color: #00AAFF; }
 .trash { color: #444; }
 .deco { color: #666; }
+
+.npc_unknown {  
+  background-color: #555; 
+  border-radius: 50%;
+  
+  animation: npc-glitch 2s infinite steps(5);
+}
+
+.npc_unknown::after {
+  content: "?";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #888;
+  font-size: 0.8rem;
+  font-family: "NeoDunggeunmo";
+}
 
 #dialogue-box {
   position: absolute;
@@ -66,5 +89,105 @@ body {
   z-index: 10;
 }
 
+.glitch-wall {
+  color: #00ffea; 
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: wall-glitch 0.2s infinite;
+  font-weight: bold;
+  cursor: pointer; 
+}
+
+.matrix-effect {
+  filter: contrast(200%) brightness(150%) hue-rotate(90deg);
+  transform: skew(10deg);
+  transition: all 2s ease;
+}
+
+.ending-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #00FF00; 
+  font-family: 'VT323', monospace;
+  padding: 2rem;
+  text-align: center;
+}
+
+.code-text {
+  font-family: 'Press Start 2P';
+  margin-bottom: 2rem;
+  animation: blink 1s infinite;
+}
+
+.monologue p {
+  font-family: 'NeoDunggeunmo';
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: #ddd;
+}
+
+.choice-buttons {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.choice-btn {
+  padding: 20px;
+  font-family: 'Press Start 2P', 'NeoDunggeunmo';
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 2px solid;
+  background: transparent;
+  line-height: 1.5;
+}
+
+.choice-btn.return {
+  color: #FFFF00; 
+  border-color: #FFFF00;
+}
+.choice-btn.return:hover {
+  background: #FFFF00;
+  color: #000;
+}
+
+.choice-btn.disconnect {
+  color: #00FFFF; 
+  border-color: #00FFFF;
+}
+.choice-btn.disconnect:hover {
+  background: #00FFFF;
+  color: #000;
+}
+
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+@keyframes glitch-anim {
+  0% { transform: translate(0); }
+  20% { transform: translate(-5px, 5px); filter: hue-rotate(90deg); }
+  40% { transform: translate(-5px, -5px); filter: invert(1); }
+  60% { transform: translate(5px, 5px); opacity: 0.8; }
+  80% { transform: translate(5px, -5px); }
+  100% { transform: translate(0); filter: none; }
+}
+
+@keyframes npc-glitch {
+  0% { transform: translate(0, 0); opacity: 1; }
+  10% { transform: translate(-2px, 2px); opacity: 0.8; filter: hue-rotate(90deg); }
+  20% { transform: translate(2px, -2px); opacity: 1; }
+  30% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes wall-glitch {
+  0% { transform: translate(0); opacity: 1; }
+  25% { transform: translate(-1px, 1px); color: #c807da; } 
+  50% { transform: translate(1px, -1px); opacity: 0.8; }
+  75% { transform: translate(0); color: #00ffea; }
+  100% { transform: translate(0); }
+}
+

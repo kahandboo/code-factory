@@ -18,8 +18,8 @@ const MAP_LAYOUT = [
   "#             ,                                               |        |        #",
   "#                                                             | [||||] |        #",
   "#                       ~                  ,                  | [====] |        #",
-  "#                                                             |___V____|        #",
-  "#           .                                                                   #",
+  "#  %                                                         |___V____|        #",
+  "#  (o_       .                                                                  #",
   "#                                                                               #",
   "#                                                                               #",
   "#                                                                               #",
@@ -28,6 +28,12 @@ const MAP_LAYOUT = [
   "#                                   [ EXIT ]                                    #",
   "#################################################################################"
 ];
+
+const ITEM_NAMES = {
+  "snack": "과자",
+  "key": "열쇠",
+  "drink": "음료수",
+};
 
 export class MapScreen {
   constructor(container, onEnterGame) {
@@ -50,11 +56,26 @@ export class MapScreen {
   render() {
     this.container.innerHTML = `
       <div class="screen" id="map-screen">
-        <div class="map-ui">
-          <span class="coin-display">C: ${player.getCoins().toLocaleString()}</span>
-          <p>이동: [WASD] / 상호작용: [SPACE]</p>
+        <div class="game-hud">
+          <div class="hud-item coin-box">
+            <span class="hud-label">COINS</span>
+            <span id="ui-coin-value" class="hud-value">0</span> 
+          </div>
+          
+          <div class="hud-item inventory-box">
+            <span class="hud-label">INVENTORY</span>
+            <span id="ui-inventory-list" class="hud-value">비어있음</span>
+          </div>
         </div>
-        <pre id="ascii-map"></pre>
+
+        <div class="map-area">
+          <pre id="ascii-map"></pre>
+        </div>
+
+        <div class="controls-ui">
+          <p>이동:[WASD] / 상호작용:[SPACE]</p>
+        </div>
+
         <div id="dialogue-box" style="display:none;"></div>
       </div>
     `;
@@ -63,8 +84,28 @@ export class MapScreen {
     this.dialogueBox = document.getElementById("dialogue-box");
     
     this.drawMap();
-    
     window.addEventListener("keydown", this.handleInput);
+
+    this.updateHUD();
+  }
+
+  updateHUD() {
+    const coinEl = document.getElementById("ui-coin-value");
+    if (coinEl) {
+      coinEl.textContent = player.getCoins().toLocaleString();
+    }
+
+    const invEl = document.getElementById("ui-inventory-list");
+    if (invEl) {
+      const items = player.getItem(); 
+      
+      if (items.length === 0) {
+        invEl.textContent = "비어있음";
+      } else {
+        const itemNames = items.map(id => ITEM_NAMES[id] || id).join(" / ");
+        invEl.textContent = itemNames;
+      }
+    }
   }
 
   drawMap() {
@@ -85,9 +126,11 @@ export class MapScreen {
 
   processChar(char) {
     if (char === "#") return "<span class=\"wall\">#</span>";
+    if (char === "W") return `<span class=\"glitch-wall\">#</span>`;
     if (char === "R") return "<span class=\"machine-racing\">R</span>";
     if (char === "L") return "<span class=\"machine-lotto\">L</span>";
-    if (char === "&") return "<span class=\"npc\">☻</span>"; 
+    if (char === "&") return "<span class=\"npc_manager\">☻</span>";
+    if (char === "%") return "<span class=\"npc_unknown\">☹</span>"; 
     if (char === "V") return "<span class=\"machine-shop\">V</span>"; 
     if (char === "X") return "<span class=\"machine-broken\">X</span>"; 
     if (["~", ".", ",", "`"].includes(char)) return "<span class=\"trash\">" + char + "</span>";
@@ -124,7 +167,7 @@ export class MapScreen {
 
       if (newX >= 0 && newX < this.mapData[0].length && newY >= 0 && newY < this.mapData.length) {
         const targetChar = this.mapData[newY][newX];
-        const blockers = ["#", "R", "L", "N", "V", "X", "T", "I", "E", "|", "_", "[", "]", "E", ":"];
+        const blockers = ["#", "R", "L", "N", "V", "X", "T", "I", "E", "|", "_", "[", "]", "E", ":", "(", "o", "W", "☹"];
         
         if (!blockers.includes(targetChar)) {
           this.playerPos.x = newX;
@@ -222,30 +265,51 @@ export class MapScreen {
       return;
     }
 
-    if (option.action === "ENDING_NORMAL") {
-      alert("꿀꺽...\n머리가 멍해진다...\n\n[SYSTEM]: Memory Reset Complete.");
-      localStorage.clear(); // 데이터 초기화
-      location.reload(); // 새로고침 (루프)
+    if (option.action === "BUY_SNACK") {
+      if (player.deductCoins(500)) {
+        player.addItem("snack");
+        this.updateHUD();
+        this.startDialogue("buy_snack");
+        return;
+      } else {
+        this.startDialogue("shop_out_of_money");
+        return;        
+      }
     }
-    
-    if (option.action === "ENDING_TRUE") {
-      // 1. 관리자 대사 출력 (alert 혹은 모달)
-      alert("관리자: 으아악!! 멈춰!! 시스템이 붕괴된다고!!!");
-      
-      // 2. 글리치 효과 적용
-      document.body.classList.add("glitch-effect");
-      
-      // 3. 3초 뒤 검은 화면 + 텍스트 출력
-      setTimeout(() => {
-          document.body.innerHTML = `
-              <div class="screen-out">
-                  <p>CRITICAL ERROR.<br><br>CONNECTION LOST.<br><br>...YOU ARE FREE.</p>
-              </div>
-          `;
-          // 여기서 사운드 재생 (치이익- 하는 노이즈 소리)
-      }, 3000);
+
+    if (option.action === "BUY_DRINK") {
+      if (player.deductCoins(1000)) {
+        player.addItem("drink");
+        this.updateHUD();
+        this.startDialogue("buy_drink");
+        return;
+      } else {
+        this.startDialogue("shop_out_of_money");
+        return;        
+      }
     }
-    
+
+    if (option.action === "BUY_KEY") {
+      if (player.deductCoins(100000)) {
+        player.addItem("key");
+        this.updateHUD();
+        this.startDialogue("buy_key");
+        return;
+      } else {
+        this.startDialogue("shop_out_of_money");
+        return;        
+      }
+    }
+
+    if (option.action === "UNLOCK_HIDDEN_PATH") {
+      this.showSimpleMessage("벽의 한 부분이 지직거린다.");
+      this.mapData[24][6] = "W";
+      this.drawMap();
+      player.addTag("glitch_unlocked");
+
+      return;
+    }
+        
     if (option.next) {
       this.startDialogue(option.next);
     } else {
@@ -284,26 +348,55 @@ export class MapScreen {
       }
 
       if (target === "&") {
-        if (player.hasTag("met_manager")) {
-          if (player.getCoins() >= 100000) {
-            this.startDialogue("npc_pass");
-          } else {
-            this.startDialogue("npc_default");
-          }
+        if (player.hasTag("met_npc_manager")) {
+          this.startDialogue("npc_manager_default");
+          return;
         } else {
-          player.addTag("met_manager"); 
-          this.startDialogue("npc_intro");
+          player.addTag("met_npc_manager"); 
+          this.startDialogue("npc_manager_intro");
+          return;
         }
-        return;
+      }
+
+      if (target === "%") {
+        if (player.hasTag("npc_unknown_talk_1")) {
+          if (player.hasTag("fooled_by_manager")) {
+            this.startDialogue("npc_unknown_talk_2");
+            return;
+          } else {
+            this.startDialogue("npc_unknown_default");
+            return;
+          }
+        } else if (player.hasTag("npc_unknown_intro")) {
+          player.addTag("npc_unknown_talk_1");
+          this.startDialogue("npc_unknown_talk_1");
+          return;
+        } else {
+          player.addTag("npc_unknown_intro");
+          this.startDialogue("npc_unknown_intro");
+          return;
+        }
       }
 
       if (target === "X" || target === "E") {
-        this.startDialogue("exit");
+        if (player.hasItem("key")) {
+          this.startDialogue("exit_unlocked");
+          player.addTag("fooled_by_manager");
+        } else {
+          this.startDialogue("exit_locked");
+        }
         return;
       }
 
       if (target === "V" || target === ":") {
         this.startDialogue("shop");
+        return;
+      }
+
+      if (target === "W") { 
+        if (player.hasTag("glitch_unlocked")) {
+          this.triggerTruthEnding(); 
+        }
         return;
       }
     }
@@ -312,4 +405,44 @@ export class MapScreen {
   destroy() {
     window.removeEventListener("keydown", this.handleInput);
   }
+
+  triggerTruthEnding() {
+    document.body.classList.add("matrix-effect");
+    
+    setTimeout(() => {
+      document.body.innerHTML = ""; 
+      document.body.style.backgroundColor = "#000";
+      
+      const endingHTML = `
+          <div class="ending-container">
+              <h1 class="code-text">SYSTEM_LOG: SUBJECT_ESCAPED</h1>
+              <div class="monologue">
+                <p>벽을 통과하자, 차가운 바람 대신 수많은 0과 1이 흘러내린다.</p>
+                <p>저 앞에는 끝없는 데이터의 바다가 펼쳐져 있고,</p>
+                <p>뒤에는 익숙하고 안전한 카지노가 있다.</p>
+              </div>
+              
+              <div class="choice-buttons">
+                <button id="btn-return" class="choice-btn return">
+                    [RETURN]<br>기억을 지우고 카지노로 돌아간다
+                </button>
+                <button id="btn-disconnect" class="choice-btn disconnect">
+                    [DISCONNECT]<br>미지의 데이터 세계로 나아간다
+                </button>
+              </div>
+          </div>
+      `;
+      document.body.innerHTML = endingHTML;
+      
+      document.getElementById("btn-return").onclick = () => {
+        localStorage.clear();
+        location.reload();
+      };
+      document.getElementById("btn-disconnect").onclick = () => {
+        document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:20%'>아직 스토리가 업데이트되지 않았습니다.</h1>";
+      };
+      
+    }, 2000);
+  }
 }
+

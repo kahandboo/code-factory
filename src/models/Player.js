@@ -4,9 +4,11 @@ class Player {
   constructor() {
     const savedCoins = localStorage.getItem("playerCoins");
     const savedHistory = localStorage.getItem("playerHistory");
+    const savedItems = localStorage.getItem("playerItems");
 
     this.coins = savedCoins ? parseInt(savedCoins, 10) : INITIAL_COINS;
     this.history = savedHistory ? JSON.parse(savedHistory) : [];
+    this.items = savedItems ? JSON.parse(savedItems) : [];
   }
 
   getCoins() {
@@ -38,14 +40,31 @@ class Player {
     }
   }
 
+  hasItem(item) {
+    return this.items.includes(item);
+  }
+
+  addItem(item)  {
+    if (!this.hasItem(item)) {
+      this.items.push(item);
+      this.save();
+    }
+  }
+
+  getItem() {
+    return [...this.items];
+  }
+
   save() {
     localStorage.setItem("playerCoins", this.coins);
     localStorage.setItem("playerHistory", JSON.stringify(this.history));
+    localStorage.setItem("playerItems", JSON.stringify(this.items));
   }
 
   reset() {
     this.coins = INITIAL_COINS;
     this.history = [];
+    this.items = [];
     this.save();
   }
 }
