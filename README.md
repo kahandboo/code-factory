@@ -3,10 +3,19 @@
 Vanilla JavaScript로 구현한 레트로 감성의 웹 기반 아케이드 게임입니다.  
 프레임워크 없이 SPA 구조와 CSS 애니메이션만으로 몰입감 있는 게임 경험을 설계했습니다.
 
+![자동차 경주 게임](https://github.com/user-attachments/assets/12530b93-18c6-439d-b24b-57c752b3dc8a)
+
+![로또 게임](https://github.com/user-attachments/assets/80bb2dbb-6645-459b-abdf-be1626116b98)
+
+![메인 맵](https://github.com/user-attachments/assets/d2c12c3f-838e-4d78-a486-889bbb1da440)
+
+
 ## 📖 프로젝트 개요
 
 콘솔 기반 미니게임을 **웹 기반 인터랙티브 경험**으로 재해석한 프로젝트입니다.  
 "망가진 카지노에서 탈출한다"는 스토리라인을 중심으로, 2개의 미니게임과 멀티 엔딩을 연결했습니다.
+
+
 
 **핵심 도전 과제:**
 - 프레임워크 없이 SPA 구조 직접 설계 (View Router 패턴)
